@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d0287df4704b50f42a74d8c44039d640
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330562
+  packageName: GraveStalker1
+  packageVersion: 1.0.1
+  assetPath: Assets/GraveStalker1/Materials/M_GraveStalker1_Body.mat
+  uploadId: 824420

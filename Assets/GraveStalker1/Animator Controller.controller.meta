@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c88205f4ee864da4d9a6600e74c44e56
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330562
+  packageName: GraveStalker1
+  packageVersion: 1.0.1
+  assetPath: Assets/GraveStalker1/Animator Controller.controller
+  uploadId: 824420
