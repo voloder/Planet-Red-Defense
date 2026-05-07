@@ -38,6 +38,9 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         currentAmmo = magazineSize;
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void Update()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AimIK : MonoBehaviour
@@ -12,7 +13,9 @@ public class AimIK : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
+
     }
+    
 
     void OnAnimatorIK(int layerIndex)
     {

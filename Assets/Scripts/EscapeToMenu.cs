@@ -60,9 +60,6 @@ public class EscapeToMenu : MonoBehaviour
     {
         Time.timeScale = paused ? 0f : 1f;
 
-        UnityEngine.Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
-        UnityEngine.Cursor.visible   = paused;
-
         if (playerShoot != null)
             playerShoot.enabled = !paused;
     }
