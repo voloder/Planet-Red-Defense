@@ -1,0 +1,83 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/HUD.uss?fileID=7433441132597879392&amp;guid=e59f1dd2ee7c2d947b2b25365610b6bb&amp;type=3#HUD"/>
+    <ui:VisualElement name="hud-root" class="hud-root">
+        <ui:VisualElement name="top-bar" class="top-bar" style="flex-wrap: nowrap; align-items: auto; justify-content: space-between;">
+            <ui:VisualElement name="VisualElement" class="panel wave-panel" style="height: 70px; width: 190px; align-self: flex-start; color: rgba(0, 0, 0, 0); justify-content: space-around; background-color: rgba(20, 3, 2, 0.82);">
+                <ui:Label text="SIEGE WAVE" class="wave-top" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                <ui:Label name="wave-number" text="04" class="wave-big" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); height: 46px; width: 64px; font-size: 40px; -unity-text-align: upper-center; align-items: auto;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="Resources" class="panel" style="height: 91px; width: 286px; align-items: flex-start; justify-content: flex-start; -unity-text-align: middle-left; flex-direction: column; flex-wrap: wrap; flex-grow: initial; align-self: auto; align-content: center; color: rgb(0, 0, 0); border-left-color: rgb(190, 38, 12); border-right-color: rgb(190, 38, 12); border-top-color: rgb(190, 38, 12); border-bottom-color: rgb(190, 38, 12); background-color: rgba(20, 3, 2, 0.82);">
+                <ui:Label text="RESOURCES" class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); width: 87px;"/>
+                <ui:VisualElement name="LeftColumn" style="flex-grow: 1; align-items: flex-start; height: 20px; justify-content: space-around; transform-origin: center; width: 50%;">
+                    <ui:VisualElement name="VisualElement" class="res-row" style="height: 0; width: 117px; justify-content: flex-start; align-content: auto;">
+                        <ui:VisualElement class="res-icon iron-icon"/>
+                        <ui:Label text="IRON" class="res-name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); justify-content: center;"/>
+                        <ui:Label name="iron-value" text="240" class="res-val iron-val" style="color: rgb(215, 75, 35); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="res-row" style="height: 0; width: 120px;">
+                        <ui:VisualElement class="res-icon copper-icon"/>
+                        <ui:Label text="COPPER&#10;" class="res-name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        <ui:Label name="copper-value" text="95" class="res-val copper-val" style="color: rgb(215, 75, 35); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label text="." class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); width: 87px; color: rgba(20, 3, 2, 140);"/>
+                <ui:VisualElement name="RightColumn" style="flex-grow: 1; align-items: flex-start; height: 20px; justify-content: space-around; width: 50%;">
+                    <ui:VisualElement name="VisualElement" class="res-row" style="height: 0; width: 117px; justify-content: flex-start; align-content: auto;">
+                        <ui:VisualElement class="res-icon iron-icon" style="background-color: rgb(121, 121, 130);"/>
+                        <ui:Label text="TITANIUM&#10;" class="res-name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); justify-content: center;"/>
+                        <ui:Label name="titanium-value" text="240" class="res-val iron-val" style="color: rgb(215, 75, 35); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="res-row" style="height: 0; width: 120px;">
+                        <ui:VisualElement class="res-icon copper-icon" style="background-color: rgb(185, 242, 255);"/>
+                        <ui:Label text="DIAMOND&#10;" class="res-name" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        <ui:Label name="diamond-value" text="95" class="res-val copper-val" style="color: rgb(215, 75, 35); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="bottom-bar" class="bottom-bar">
+            <ui:VisualElement class="bottom-left">
+                <ui:VisualElement class="bottom-left" style="height: 132px; width: 185px;">
+                    <ui:VisualElement class="panel" style="height: 133px; width: 186px; background-color: rgba(20, 3, 2, 0.82);">
+                        <ui:Label text="CONTROLS" class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        <ui:VisualElement class="key-row">
+                            <ui:Label text="E" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="Place Structure" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="key-row">
+                            <ui:Label text="F" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="Mine Resource" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="key-row">
+                            <ui:Label text="TAB" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="Tactical Map" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" class="bottom-right" style="background-size: 100% 50px; height: 130px; justify-content: flex-start;">
+                <ui:VisualElement class="panel ammo-panel" style="width: 164px; height: 135px; background-size: 100% 100%; -unity-text-align: upper-left; justify-content: space-between; align-self: auto; align-content: flex-start; align-items: flex-start; background-color: rgba(20, 3, 2, 0.82);">
+                    <ui:Label text="AMMUNITION" class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    <ui:VisualElement class="ammo-row" style="justify-content: flex-start; align-self: auto; align-items: auto; align-content: auto; -unity-text-align: middle-left;">
+                        <ui:Label name="ammo-current" text="28" class="ammo-num"/>
+                        <ui:Label text=" / " class="ammo-sep"/>
+                        <ui:Label name="ammo-max" text="120" class="ammo-max"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="ammo-track">
+                        <ui:VisualElement name="ammo-bar-fill" class="ammo-bar-fill"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="craft-progress-root" class="craft-progress-root hidden">
+                        <ui:Label text="CRAFTING..." class="craft-progress-label"/>
+                        <ui:VisualElement class="craft-track">
+                            <ui:VisualElement name="craft-bar-fill" class="craft-bar-fill"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Button name="craft-ammo-btn" class="craft-btn" style="width: 132px; height: 25px;">
+                        <ui:VisualElement name="craft-btn-fill" class="craft-btn-fill"/>
+                        <ui:Label text="CRAFT AMMO" class="craft-label"/>
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

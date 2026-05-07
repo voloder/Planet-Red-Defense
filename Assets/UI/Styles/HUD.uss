@@ -1,0 +1,268 @@
+/* RED SIEGE — HUD */
+
+.hud-root {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.hidden {
+    display: none;
+}
+
+/* ── LAYOUT ── */
+.top-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 14px 14px 0 14px;
+}
+
+.bottom-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0 14px 14px 14px;
+}
+
+.bottom-left {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bottom-right {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* ── PANEL BASE ── */
+.panel {
+    background-color: rgba(20, 3, 2, 128);
+    border-color: rgba(190, 38, 12, 82);
+    border-width: 1px;
+    border-radius: 4px;
+    padding: 9px 13px;
+}
+
+.panel-label {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(215, 75, 35, 140);
+    margin-bottom: 6px;
+}
+
+/* ══════════════════════════════════════
+   WAVE
+   ══════════════════════════════════════ */
+
+.wave-panel {
+    align-items: center;
+    min-width: 190px;
+}
+
+.wave-top {
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: rgba(215, 75, 35, 128);
+    margin-bottom: 2px;
+}
+
+.wave-big {
+    font-size: 32px;
+    color: rgb(255, 68, 34);
+    -unity-font-style: bold;
+}
+
+/* ══════════════════════════════════════
+   RESOURCES
+   ══════════════════════════════════════ */
+
+.res-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.res-icon {
+    width: 13px;
+    height: 13px;
+    border-radius: 2px;
+    margin-right: 7px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 30);
+    flex-shrink: 0;
+}
+
+.iron-icon   { background-color: rgb(74, 90, 106); }
+.copper-icon { background-color: rgb(122, 66, 24); }
+
+.res-name {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: rgba(215, 75, 35, 122);
+    width: 52px;
+}
+
+.res-val {
+    font-size: 10px;
+    -unity-font-style: bold;
+    min-width: 30px;
+    -unity-text-align: middle-right;
+    margin-left: 6px;
+}
+
+.iron-val   { color: rgb(96, 144, 168); }
+.copper-val { color: rgb(184, 96, 24); }
+
+/* ══════════════════════════════════════
+   CONTROLS
+   ══════════════════════════════════════ */
+
+.key-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.key-badge {
+    font-size: 8px;
+    -unity-font-style: bold;
+    border-width: 1px;
+    border-color: rgba(215, 55, 18, 128);
+    border-radius: 2px;
+    padding: 2px 5px;
+    color: rgb(255, 102, 51);
+    background-color: rgba(160, 25, 8, 56);
+    margin-right: 6px;
+    min-width: 22px;
+    -unity-text-align: middle-center;
+}
+
+.key-desc {
+    font-size: 9px;
+    color: rgba(215, 75, 35, 122);
+    letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════
+   AMMO
+   ══════════════════════════════════════ */
+
+.ammo-panel {
+    min-width: 160px;
+}
+
+.ammo-row {
+    flex-direction: row;
+    align-items: flex-end;
+    margin-bottom: 5px;
+}
+
+.ammo-num {
+    font-size: 28px;
+    -unity-font-style: bold;
+    color: rgb(255, 68, 34);
+    line-height: 1;
+}
+
+.ammo-sep {
+    font-size: 14px;
+    color: rgba(215, 75, 35, 0.4);
+    margin-bottom: 3px;
+}
+
+.ammo-max {
+    font-size: 14px;
+    color: rgba(215, 75, 35, 0.4);
+    margin-bottom: 3px;
+}
+
+.ammo-track {
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 1px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.ammo-bar-fill {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(200, 30, 10);
+    border-radius: 1px;
+    transition-property: width;
+    transition-duration: 0.3s;
+}
+
+/* ══════════════════════════════════════
+   CRAFT
+   ══════════════════════════════════════ */
+
+/* overflow: hidden clips craft-btn-fill to the button bounds */
+.craft-btn {
+    background-color: rgba(160, 25, 8, 0.3);
+    border-width: 1px;
+    border-color: rgba(215, 55, 18, 0.55);
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-top: 2px;
+    cursor: link;
+    overflow: hidden;
+}
+
+.craft-btn:hover {
+    background-color: rgba(200, 40, 10, 0.5);
+    border-color: rgba(255, 68, 34, 0.8);
+}
+
+.craft-btn:active {
+    background-color: rgba(255, 68, 34, 0.3);
+}
+
+/* width driven by HUDController.Update — UI Toolkit keyframe animations not supported */
+.craft-btn-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0%;
+    background-color: rgba(255, 68, 34, 0.3);
+}
+
+.craft-label {
+    font-size: 9px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+    color: rgb(255, 102, 51);
+    -unity-text-align: middle-center;
+}
+
+.craft-progress-root {
+    margin-top: 6px;
+}
+
+.craft-progress-label {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: rgba(215, 75, 35, 0.6);
+    margin-bottom: 3px;
+}
+
+.craft-track {
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 1px;
+    overflow: hidden;
+    border-width: 1px;
+    border-color: rgba(215, 55, 18, 0.3);
+}
+
+.craft-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: rgb(255, 102, 51);
+    border-radius: 1px;
+    transition-property: width;
+    transition-duration: 0.1s;
+}

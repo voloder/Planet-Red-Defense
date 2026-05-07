@@ -1,0 +1,125 @@
+/* RED SIEGE — Main Menu */
+
+.mm-root {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(8, 2, 2, 255);
+}
+
+/* ══════════════════════════════════════
+   TITLE
+   ══════════════════════════════════════ */
+
+.title-block {
+    align-items: center;
+    margin-bottom: 48px;
+}
+
+.mm-title {
+    font-size: 42px;
+    color: rgb(215, 40, 10);
+    letter-spacing: 6px;
+    -unity-font-style: bold;
+    margin-bottom: 12px;
+}
+
+.title-divider {
+    width: 320px;
+    height: 1px;
+    background-color: rgba(190, 38, 12, 100);
+}
+
+/* ══════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════ */
+
+.btn-group {
+    align-items: center;
+    width: 280px;
+}
+
+.mm-btn {
+    width: 100%;
+    height: 46px;
+    background-color: rgba(20, 3, 2, 180);
+    border-width: 1px;
+    border-color: rgba(190, 38, 12, 140);
+    border-radius: 3px;
+    margin-bottom: 12px;
+    cursor: link;
+    align-items: center;
+    justify-content: center;
+    transition-property: background-color, border-color;
+    transition-duration: 0.15s;
+}
+
+.mm-btn:hover {
+    background-color: rgba(160, 25, 8, 0.5);
+    border-color: rgba(255, 68, 34, 0.9);
+}
+
+.mm-btn:active {
+    background-color: rgba(255, 68, 34, 0.25);
+}
+
+/* narrower variant used on the close button inside tutorial panel */
+.mm-btn--narrow {
+    width: 160px;
+    margin-top: 20px;
+    align-self: center;
+}
+
+.mm-btn-label {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: rgb(215, 75, 35);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+/* ══════════════════════════════════════
+   TUTORIAL OVERLAY
+   overlay sits on top of the whole menu; panel is centered inside it
+   ══════════════════════════════════════ */
+
+.tutorial-overlay {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 180);
+    align-items: center;
+    justify-content: center;
+}
+
+.tutorial-panel {
+    width: 520px;
+    background-color: rgba(20, 3, 2, 230);
+    border-width: 1px;
+    border-color: rgba(190, 38, 12, 120);
+    border-radius: 4px;
+    padding: 28px 32px;
+    align-items: flex-start;
+}
+
+.tutorial-heading {
+    font-size: 16px;
+    letter-spacing: 5px;
+    color: rgb(215, 40, 10);
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+}
+
+.tutorial-text {
+    font-size: 11px;
+    color: rgba(215, 75, 35, 180);
+    letter-spacing: 1px;
+    white-space: normal;
+    margin-top: 16px;
+    -unity-text-align: upper-left;
+}
+
+.hidden {
+    display: none;
+}

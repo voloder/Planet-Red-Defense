@@ -1,0 +1,45 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/MainMenu.uss"/>
+    <ui:VisualElement name="mm-root" class="mm-root">
+
+        <!-- Title -->
+        <ui:VisualElement class="title-block">
+            <ui:Label text="PLANET RED DEFENSE" class="mm-title"
+                style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+            <ui:VisualElement class="title-divider"/>
+        </ui:VisualElement>
+
+        <!-- Buttons -->
+        <ui:VisualElement class="btn-group">
+            <ui:Button name="btn-start" class="mm-btn">
+                <ui:Label text="START GAME" class="mm-btn-label"
+                    style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+            </ui:Button>
+            <ui:Button name="btn-tutorial" class="mm-btn">
+                <ui:Label text="TUTORIAL" class="mm-btn-label"
+                    style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+            </ui:Button>
+            <ui:Button name="btn-exit" class="mm-btn">
+                <ui:Label text="EXIT" class="mm-btn-label"
+                    style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+            </ui:Button>
+        </ui:VisualElement>
+
+        <!-- Tutorial overlay — hidden by default, shown over the menu -->
+        <ui:VisualElement name="tutorial-overlay" class="tutorial-overlay hidden">
+            <ui:VisualElement class="tutorial-panel">
+                <ui:Label text="TUTORIAL" class="tutorial-heading"
+                    style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                <ui:VisualElement class="title-divider"/>
+                <ui:Label class="tutorial-text"
+                    text="OBJECTIVE&#10;Defend the colony against waves of alien attackers.&#10;&#10;SHOOT&#10;Hold left click to fire. Reload is automatic.&#10;&#10;BUILD&#10;Press 1 to enter build mode, left click to place a structure.&#10;&#10;MINE&#10;Gather iron, copper, titanium and diamond to fund your defenses.&#10;&#10;Survive all waves to secure the planet."
+                    style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                <ui:Button name="btn-close" class="mm-btn mm-btn--narrow">
+                    <ui:Label text="CLOSE" class="mm-btn-label"
+                        style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>
