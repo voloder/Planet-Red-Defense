@@ -35,6 +35,8 @@ public class PlayerShoot : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
 
+    public bool isShooting = false;
+    
     void Start()
     {
         currentAmmo = magazineSize;
@@ -44,10 +46,12 @@ public class PlayerShoot : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        isShooting = false;
         // Fire when left mouse button is held
         if (Mouse.current.leftButton.isPressed )
         {        // 1. Ray from camera to mouse (aim point)
+            isShooting = true;
             Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit cameraHit;
 
@@ -82,12 +86,12 @@ public class PlayerShoot : MonoBehaviour
     {
 
 
-        if (cameraHit.collider.gameObject.tag == "Terrain")
+        /*if (cameraHit.collider.gameObject.tag == "Terrain")
         {
             aimPoint.y += 1.5f;
-        }
+        }*/
 
-    // 2. Ray from origin toward aim point
+        
         Vector3 shootDirection = (aimPoint - origin.transform.position).normalized;
         Ray originRay = new Ray(origin.transform.position, shootDirection);
         RaycastHit originHit;

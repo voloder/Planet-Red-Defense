@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CinemachineTarget
   - Terrain
+  - CopperOre
+  - IronOre
+  - TitaniumOre
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,8 @@ public class BuilderManager : MonoBehaviour
 
     [Header("Hologram")]
     [SerializeField] private GameObject hologramPrefab;
-
+    [SerializeField] private GameObject redHologramPrefab;
+    
     [Header("Terrain")]
     [SerializeField] private Terrain terrain;
 
@@ -24,10 +25,12 @@ public class BuilderManager : MonoBehaviour
     [Header("Cancel key")]
     public Key cancelKey = Key.Q;
     
-    private bool isPlacing = false;
+    private bool _isPlacing;
+    private bool _canPlaceOnCurrentTarget;
+    private bool _currentHologramIsRed;
 
-    private GameObject currentHologram;
-    private Camera cam;
+    private GameObject _currentHologram;
+    private Camera _cam;
 
     private void Awake()
     {
@@ -43,19 +46,22 @@ public class BuilderManager : MonoBehaviour
 
     private void Start()
     {
-        cam = Camera.main;
+        _cam = Camera.main;
     }
 
     private void Update()
     {
-        if(Keyboard.current[placeKey].wasPressedThisFrame)
+        if (Keyboard.current != null)
         {
-            isPlacing = true;
-        }
-        
-        if(Keyboard.current[cancelKey].wasPressedThisFrame)
-        {
-            isPlacing = false;
+            if(Keyboard.current[placeKey].wasPressedThisFrame)
+            {
+                _isPlacing = true;
+            }
+            
+            if(Keyboard.current[cancelKey].wasPressedThisFrame)
+            {
+                _isPlacing = false;
+            }
         }
         
         HandleRaycast();
@@ -64,54 +70,57 @@ public class BuilderManager : MonoBehaviour
 
     private void HandleRaycast()
     {
-        if(!isPlacing)
+        if(!_isPlacing)
         {
+            _canPlaceOnCurrentTarget = false;
             HideHologram();
             return;
         }
-        if (Mouse.current == null) return;
-
-        Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(ray, out RaycastHit hit, maxBuildDistance))
+        if (Mouse.current == null || _cam == null)
         {
-            Terrain hitTerrain = hit.collider.GetComponent<Terrain>();
-            if (hitTerrain != terrain)
-            {
-                HideHologram();
-                return;
-            }
+            _canPlaceOnCurrentTarget = false;
+            HideHologram();
+            return;
+        }
 
-            ShowHologram(hit);
+        Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hit, maxBuildDistance, buildSurfaceMask))
+        {
+            bool isCopperOre = HasTagInParents(hit.collider.transform, "CopperOre");
+            _canPlaceOnCurrentTarget = isCopperOre;
+            ShowHologram(hit, isCopperOre);
         }
         else
         {
+            _canPlaceOnCurrentTarget = false;
             HideHologram();
         }
     }
 
 
-    private void ShowHologram(RaycastHit hit)
+    private void ShowHologram(RaycastHit hit, bool isCopperOre)
     {
-        if (currentHologram == null)
-            SpawnHologram();
+        bool shouldUseRedHologram = !isCopperOre;
+        if (_currentHologram == null || _currentHologramIsRed != shouldUseRedHologram)
+            SpawnHologram(shouldUseRedHologram);
 
-        currentHologram.SetActive(true);
-        currentHologram.transform.position = hit.point;
-        currentHologram.transform.up = Vector3.up;
+        _currentHologram.SetActive(true);
+        _currentHologram.transform.position = hit.point;
+        _currentHologram.transform.up = Vector3.up;
     }
 
     private void HideHologram()
     {
-        if (currentHologram != null)
-            currentHologram.SetActive(false);
+        if (_currentHologram != null)
+            _currentHologram.SetActive(false);
     }
 
 
     private void HandlePlacement()
     {
         if (Mouse.current == null) return;
-        if (currentHologram == null || !currentHologram.activeSelf) return;
+        if (_currentHologram == null || !_currentHologram.activeSelf || !_canPlaceOnCurrentTarget) return;
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -120,25 +129,38 @@ public class BuilderManager : MonoBehaviour
     }
 
 
-    private void SpawnHologram()
+    private void SpawnHologram(bool useRedHologram)
     {
-        currentHologram = Instantiate(hologramPrefab);
+        if (_currentHologram != null)
+            Destroy(_currentHologram);
+
+        _currentHologram = Instantiate(useRedHologram ? redHologramPrefab : hologramPrefab);
+        _currentHologramIsRed = useRedHologram;
     }
 
     private void PlaceObject()
     {
-        isPlacing = false;
+        if (!_canPlaceOnCurrentTarget || _currentHologram == null)
+            return;
+
+        _isPlacing = false;
         Instantiate(
             buildablePrefab, // replace with real prefab
-            currentHologram.transform.position,
-            currentHologram.transform.rotation
+            _currentHologram.transform.position,
+            _currentHologram.transform.rotation
         );
     }
 
-    Vector3 Snap(Vector3 pos, float gridSize)
+    private bool HasTagInParents(Transform target, string tagName)
     {
-        pos.x = Mathf.Round(pos.x / gridSize) * gridSize;
-        pos.z = Mathf.Round(pos.z / gridSize) * gridSize;
-        return pos;
+        while (target != null)
+        {
+            if (target.CompareTag(tagName))
+                return true;
+
+            target = target.parent;
+        }
+
+        return false;
     }
 }
