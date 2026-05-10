@@ -18,7 +18,12 @@ public class AimIK : MonoBehaviour
         anim = GetComponent<Animator>();
 
     }
-    
+
+    private void Update()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     void OnAnimatorIK(int layerIndex)
     {

@@ -39,14 +39,12 @@ public class PlayerShoot : MonoBehaviour
     
     void Start()
     {
-        currentAmmo = magazineSize;
-        
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        currentAmmo = magazineSize; 
     }
 
     void Update()
     {   
+
         isShooting = false;
         // Fire when left mouse button is held
         if (Mouse.current.leftButton.isPressed )
