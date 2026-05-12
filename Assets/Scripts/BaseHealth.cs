@@ -6,9 +6,12 @@ public class BaseHealth : Interactable
 
     [Header("Stats")]
     public float maxHealth = 1000f;
+    [SerializeField] private float underAttackWarningDuration = 1.5f;
 
     float currentHealth;
+    float lastDamageTime = float.NegativeInfinity;
     public bool IsAlive { get; private set; } = true;
+    public bool IsUnderAttack => IsAlive && Time.time - lastDamageTime <= underAttackWarningDuration;
 
     void Awake()
     {
@@ -25,6 +28,8 @@ public class BaseHealth : Interactable
         if (!IsAlive) return;
 
         currentHealth -= amount;
+        if (amount > 0f)
+            lastDamageTime = Time.time;
         Debug.Log($"Baza HP: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0f)

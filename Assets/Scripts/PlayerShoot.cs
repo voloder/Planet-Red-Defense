@@ -18,18 +18,7 @@ public class PlayerShoot : MonoBehaviour
     public int magazineSize = 5;        // Shots before reload
     public float reloadTime = 1.5f;       // Seconds to reload
 
-    
-    [Header("Impact Light")]
-    public float impactLightRange = 3f;
-    public float impactLightIntensity = 4f;
-    public float impactLightDuration = 0.1f;
-    public Color impactLightColor = Color.white;
-    
-    [Header("Origin Light")]
-    public float originLightRange = 3f;
-    public float originLightIntensity = 4f;
-    public float originLightDuration = 0.1f;
-    public Color originLightColor = Color.white;
+
     
     private float nextFireTime = 0f;
     private int currentAmmo;
@@ -113,8 +102,6 @@ public class PlayerShoot : MonoBehaviour
             audioSource.PlayOneShot(shootClip);
         }
 
-        SpawnImpactLight(finalHitPoint);
-        SpawnOriginLight(origin.transform.position);
         Destroy(lineObj, lineDuration);
     }
 
@@ -132,33 +119,5 @@ public class PlayerShoot : MonoBehaviour
         Debug.Log("Reloaded!");
     }
     
-    void SpawnImpactLight(Vector3 position)
-    {
-        GameObject lightObj = new GameObject("ImpactLight");
-        lightObj.transform.position = position;
-
-        Light light = lightObj.AddComponent<Light>();
-        light.type = LightType.Point;
-        light.range = impactLightRange;
-        light.intensity = impactLightIntensity;
-        light.color = impactLightColor;
-        light.shadows = LightShadows.None;
-
-        Destroy(lightObj, impactLightDuration);
-    }
-    void SpawnOriginLight(Vector3 position)
-    {
-        GameObject lightObj = new GameObject("OriginLight");
-        lightObj.transform.position = position;
-
-        Light light = lightObj.AddComponent<Light>();
-        light.type = LightType.Point;
-        light.range = originLightRange;
-        light.intensity = originLightIntensity;
-        light.color = originLightColor;
-        light.shadows = LightShadows.None;
-
-        Destroy(lightObj, impactLightDuration);
-    }
 
 }

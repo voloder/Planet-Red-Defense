@@ -156,3 +156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadingLine
   duration: 0.1
+  impactLightRange: 2
+  impactLightIntensity: 1
+  impactLightDuration: 0.1
+  impactLightColor: {r: 1, g: 0.6781874, b: 0.28773582, a: 1}
+  originLightRange: 4
+  originLightIntensity: 1
+  originLightDuration: 0.1
+  originLightColor: {r: 1, g: 0.6885254, b: 0.2688679, a: 1}

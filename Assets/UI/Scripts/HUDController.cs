@@ -11,6 +11,8 @@ public class HUDController : MonoBehaviour
     public Action OnCraftComplete;
 
     private Label _waveNumber;
+    private VisualElement _baseAttackWarning;
+    private bool _isBaseWarningVisible;
 
     private Label _ironValue;
     private Label _copperValue;
@@ -34,6 +36,9 @@ public class HUDController : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         _waveNumber = root.Q<Label>("wave-number");
+        _baseAttackWarning = root.Q<VisualElement>("BaseAttackWarning");
+        if (_baseAttackWarning != null)
+            _baseAttackWarning.style.display = DisplayStyle.None;
 
         _ironValue     = root.Q<Label>("iron-value");
         _copperValue   = root.Q<Label>("copper-value");
@@ -59,6 +64,8 @@ public class HUDController : MonoBehaviour
 
     void Update()
     {
+        UpdateBaseAttackWarning();
+
 #if UNITY_EDITOR
         // T = test craft fill without clicking through the game
         if (UnityEngine.InputSystem.Keyboard.current.tKey.wasPressedThisFrame)
@@ -135,5 +142,18 @@ public class HUDController : MonoBehaviour
         _craftBtnFill.style.width = Length.Percent(0f);
         _craftAmmoBtn.SetEnabled(true);
         OnCraftComplete?.Invoke();
+    }
+
+    private void UpdateBaseAttackWarning()
+    {
+        if (_baseAttackWarning == null)
+            return;
+
+        bool shouldShow = BaseHealth.instance != null && BaseHealth.instance.IsUnderAttack;
+        if (shouldShow == _isBaseWarningVisible)
+            return;
+
+        _isBaseWarningVisible = shouldShow;
+        _baseAttackWarning.style.display = shouldShow ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }

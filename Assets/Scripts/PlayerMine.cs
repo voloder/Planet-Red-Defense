@@ -76,22 +76,6 @@ public class PlayerMine : MonoBehaviour
         lr.SetPosition(0, origin.transform.position);
         lr.SetPosition(1, finalHitPoint);
 
-        SpawnImpactLight(finalHitPoint);
         Destroy(lineObj, lineDuration);
-    }
-
-    void SpawnImpactLight(Vector3 position)
-    {
-        GameObject lightObj = new GameObject("ImpactLight");
-        lightObj.transform.position = position;
-
-        Light light = lightObj.AddComponent<Light>();
-        light.type = LightType.Point;
-        light.range = impactLightRange;
-        light.intensity = impactLightIntensity;
-        light.color = impactLightColor;
-        light.shadows = LightShadows.None;
-
-        Destroy(lightObj, impactLightDuration);
     }
 }

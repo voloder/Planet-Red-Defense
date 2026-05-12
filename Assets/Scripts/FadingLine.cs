@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FadingLine : MonoBehaviour
@@ -7,11 +8,29 @@ public class FadingLine : MonoBehaviour
 
     private float timer = 0f;
     private Gradient originalGradient;
-
+    
+    [Header("Impact Light")]
+    public float impactLightRange = 3f;
+    public float impactLightIntensity = 4f;
+    public float impactLightDuration = 0.1f;
+    public Color impactLightColor = Color.white;
+    
+    [Header("Origin Light")]
+    public float originLightRange = 3f;
+    public float originLightIntensity = 4f;
+    public float originLightDuration = 0.1f;
+    public Color originLightColor = Color.white;
+    
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
         originalGradient = lr.colorGradient; // Store original colors
+    }
+
+    private void Start()
+    {
+        SpawnOriginLight(lr.GetPosition(0));
+        SpawnImpactLight(lr.GetPosition(1));
     }
 
     void Update()
@@ -45,4 +64,34 @@ public class FadingLine : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    void SpawnImpactLight(Vector3 position)
+    {
+        GameObject lightObj = new GameObject("ImpactLight");
+        lightObj.transform.position = position;
+
+        Light light = lightObj.AddComponent<Light>();
+        light.type = LightType.Point;
+        light.range = impactLightRange;
+        light.intensity = impactLightIntensity;
+        light.color = impactLightColor;
+        light.shadows = LightShadows.None;
+
+        Destroy(lightObj, impactLightDuration);
+    }
+    void SpawnOriginLight(Vector3 position)
+    {
+        GameObject lightObj = new GameObject("OriginLight");
+        lightObj.transform.position = position;
+
+        Light light = lightObj.AddComponent<Light>();
+        light.type = LightType.Point;
+        light.range = originLightRange;
+        light.intensity = originLightIntensity;
+        light.color = originLightColor;
+        light.shadows = LightShadows.None;
+
+        Destroy(lightObj, impactLightDuration);
+    }
+
 }
