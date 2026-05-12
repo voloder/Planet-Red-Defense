@@ -44,11 +44,10 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {   
-
         isShooting = false;
-        // Fire when left mouse button is held
+
         if (Mouse.current.leftButton.isPressed )
-        {        // 1. Ray from camera to mouse (aim point)
+        {
             isShooting = true;
             Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit cameraHit;
@@ -56,13 +55,8 @@ public class PlayerShoot : MonoBehaviour
             Vector3 aimPoint;
 
             if (Physics.Raycast(cameraRay, out cameraHit, maxDistance))
-            {
-                aimPoint = cameraHit.point; // Slightly above hit point
-            }
-            else
-            {
-                return;
-            }
+                aimPoint = cameraHit.point;
+            else return;
             
             target.transform.position = aimPoint;
             
@@ -86,7 +80,7 @@ public class PlayerShoot : MonoBehaviour
 
         /*if (cameraHit.collider.gameObject.tag == "Terrain")
         {
-            aimPoint.y += 1.5f;
+            aimPoint.y += 1f;
         }*/
 
         
@@ -100,24 +94,25 @@ public class PlayerShoot : MonoBehaviour
         {
             finalHitPoint = originHit.point;
             Debug.Log("Gun hit: " + originHit.collider.name);
+            
+            originHit.collider.GetComponent<Enemy>()?.TakeDamage(10f);
         }
         else
         {
             finalHitPoint = origin.transform.position + shootDirection * maxDistance;
         }
 
-        // 3. Spawn line prefab
         GameObject lineObj = Instantiate(linePrefab);
         LineRenderer lr = lineObj.GetComponent<LineRenderer>();
         lr.positionCount = 2;
         lr.SetPosition(0, origin.transform.position);
         lr.SetPosition(1, finalHitPoint);
 
-        // 4. Sound
         if (audioSource && shootClip)
         {
             audioSource.PlayOneShot(shootClip);
         }
+
         SpawnImpactLight(finalHitPoint);
         SpawnOriginLight(origin.transform.position);
         Destroy(lineObj, lineDuration);

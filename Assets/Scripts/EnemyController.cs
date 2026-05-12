@@ -5,6 +5,9 @@ public class EnemyController : MonoBehaviour
 {
     enum State { MovingToBase, ShootingPlayer, ShootingBase }
 
+    static readonly int WalkStateHash = Animator.StringToHash("Walk");
+    static readonly int AttackStateHash = Animator.StringToHash("Attack");
+
     [Header("Base")]
     public Vector3 basePosition = new Vector3(-2, 0, 18);
     public float stoppingDistance = 2f;
@@ -12,16 +15,24 @@ public class EnemyController : MonoBehaviour
     [Header("Base Attack")]
     public float baseAttackRange = 8f;
 
-    State state;
-    NavMeshAgent agent;
-    Enemy enemy;
-    Transform player;
-    float shootTimer;
+    [Header("Animation")]
+    public Animator animator;
+    public string walkStateName = "Walk_F";
+    public string attackStateName = "Attack1";
+    public float animationCrossFade = 0.1f;
+
+    State _state;
+    NavMeshAgent _agent;
+    Enemy _enemy;
+    Transform _player;
+    float _shootTimer;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        enemy = GetComponent<Enemy>();
+        _agent = GetComponent<NavMeshAgent>();
+        _enemy = GetComponent<Enemy>();
+        if (animator == null)
+            animator = GetComponent<Animator>();
 
         if (PlayerManager.instance == null || PlayerManager.instance.player == null)
         {
@@ -30,37 +41,37 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        player = PlayerManager.instance.player.transform;
-        agent.speed = enemy.moveSpeed;
-        agent.stoppingDistance = stoppingDistance;
+        _player = PlayerManager.instance.player.transform;
+        _agent.speed = _enemy.moveSpeed;
+        _agent.stoppingDistance = stoppingDistance;
 
         SetState(State.MovingToBase);
     }
 
     void Update()
     {
-        float distToPlayer = Vector3.Distance(transform.position, player.position);
+        float distToPlayer = Vector3.Distance(transform.position, _player.position);
         float distToBase = Vector3.Distance(transform.position, basePosition);
 
         bool playerAlive = PlayerHealth.instance == null || !PlayerHealth.instance.isDead;
 
-        if (playerAlive && distToPlayer <= enemy.shootRange)
+        if (playerAlive && distToPlayer <= _enemy.shootRange)
         {
-            if (state != State.ShootingPlayer)
+            if (_state != State.ShootingPlayer)
                 SetState(State.ShootingPlayer);
 
-            HandleShooting(player);
+            HandleShooting(_player);
         }
         else if (distToBase <= baseAttackRange && BaseHealth.instance != null && BaseHealth.instance.IsAlive)
         {
-            if (state != State.ShootingBase)
+            if (_state != State.ShootingBase)
                 SetState(State.ShootingBase);
 
             HandleShooting(BaseHealth.instance.transform);
         }
         else
         {
-            if (state != State.MovingToBase)
+            if (_state != State.MovingToBase)
                 SetState(State.MovingToBase);
         }
     }
@@ -69,58 +80,72 @@ public class EnemyController : MonoBehaviour
     {
         FaceTarget(shootTarget.position);
 
-        shootTimer -= Time.deltaTime;
-        if (shootTimer <= 0f)
+        _shootTimer -= Time.deltaTime;
+        if (_shootTimer <= 0f)
         {
             Shoot(shootTarget);
-            shootTimer = enemy.shootInterval;
+            _shootTimer = _enemy.shootInterval;
         }
     }
 
     void SetState(State newState)
     {
-        state = newState;
+        _state = newState;
 
         switch (newState)
         {
             case State.MovingToBase:
-                agent.isStopped = false;
-                if (agent.isOnNavMesh)
-                    agent.SetDestination(basePosition);
+                _agent.isStopped = false;
+                if (_agent.isOnNavMesh)
+                    _agent.SetDestination(basePosition);
+                PlayAnimation(walkStateName, WalkStateHash);
                 Debug.Log($"{name}: MovingToBase");
                 break;
 
             case State.ShootingPlayer:
-                agent.isStopped = true;
-                shootTimer = 0f;
+                _agent.isStopped = true;
+                _shootTimer = 0f;
+                PlayAnimation(attackStateName, AttackStateHash);
                 Debug.Log($"{name}: ShootingPlayer");
                 break;
 
             case State.ShootingBase:
-                agent.isStopped = true;
-                shootTimer = 0f;
+                _agent.isStopped = true;
+                _shootTimer = 0f;
+                PlayAnimation(attackStateName, AttackStateHash);
                 Debug.Log($"{name}: ShootingBase");
                 break;
         }
     }
 
+    void PlayAnimation(string stateName, int fallbackHash)
+    {
+        if (animator == null)
+            return;
+
+        if (string.IsNullOrWhiteSpace(stateName))
+            animator.CrossFadeInFixedTime(fallbackHash, animationCrossFade);
+        else
+            animator.CrossFadeInFixedTime(stateName, animationCrossFade);
+    }
+
     void Shoot(Transform shootTarget)
     {
-        if (enemy.bulletPrefab == null)
+        if (_enemy.bulletPrefab == null)
         {
             Debug.LogWarning($"{name}: bulletPrefab nije postavljen!");
             return;
         }
 
-        Vector3 spawnPos = enemy.gunPoint != null
-            ? enemy.gunPoint.position
+        Vector3 spawnPos = _enemy.gunPoint != null
+            ? _enemy.gunPoint.position
             : transform.position + transform.forward * 0.5f;
 
-        GameObject go = Instantiate(enemy.bulletPrefab, spawnPos, Quaternion.identity);
+        GameObject go = Instantiate(_enemy.bulletPrefab, spawnPos, Quaternion.identity);
         Bullet bullet = go.GetComponent<Bullet>();
 
         if (bullet != null)
-            bullet.Init(shootTarget, enemy.damage, enemy.bulletSpeed);
+            bullet.Init(shootTarget, _enemy.damage, _enemy.bulletSpeed);
         else
             Debug.LogWarning("bulletPrefab nema Bullet komponentu!");
     }

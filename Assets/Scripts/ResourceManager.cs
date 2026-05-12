@@ -8,11 +8,12 @@ public class ResourceManager : MonoBehaviour
     public int copper = 100;
     public int iron = 50;
     public int titanium = 20;
-    public int diamond = 0;
+    public int diamond;
     public GameObject floatingTextPrefab;
     void Start()
     {
         Instance = this;
+        RefreshHUD();
     }
 
     public void AddResourcesWithFloatingText(int copperAmount, int ironAmount, int titaniumAmount, int diamondAmount, Vector3 position)
@@ -35,6 +36,8 @@ public class ResourceManager : MonoBehaviour
         iron += ironAmount;
         titanium += titaniumAmount;
         diamond += diamondAmount;
+
+        RefreshHUD();
     }
     
     public bool CanUseResources(int copperAmount, int ironAmount, int titaniumAmount, int diamondAmount)
@@ -50,8 +53,16 @@ public class ResourceManager : MonoBehaviour
             iron -= ironAmount;
             titanium -= titaniumAmount;
             diamond -= diamondAmount;
+            RefreshHUD();
             return true;
         }
         return false;
+    }
+
+    void RefreshHUD()
+    {
+        HUDController hud = Object.FindFirstObjectByType<HUDController>();
+        if (hud != null)
+            hud.SetResources(iron, copper, titanium, diamond);
     }
 }
