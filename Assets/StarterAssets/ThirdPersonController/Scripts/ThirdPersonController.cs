@@ -154,6 +154,8 @@ namespace StarterAssets
 
         private void Update()
         {
+            if (PlayerHealth.instance != null && PlayerHealth.instance.isDead) return;
+
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
