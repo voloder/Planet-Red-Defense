@@ -9,9 +9,21 @@ public class Enemy : Interactable
 
     [Header("Shooting")] public float shootRange = 15f;
     public float shootInterval = 1.5f;
+    public Transform gunPoint;
+    public bool useLineShot;
+
+    [Header("Projectile Shot")]
     public float bulletSpeed = 15f;
     public GameObject bulletPrefab;
-    public Transform gunPoint;
+
+    [Header("Line Shot")]
+    public GameObject linePrefab;
+    public float lineDuration = 0.3f;
+    public float lineMaxDistance = 100f;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip shootClip;
 
     float currentHealth;
 
@@ -31,6 +43,11 @@ public class Enemy : Interactable
         go.transform.localPosition = healthBarOffset;
         go.transform.localRotation = Quaternion.identity;
         healthText = go.GetComponentInChildren<TextMeshPro>();
+
+        // If an AudioSource exists on the same GameObject but wasn't assigned in Inspector,
+        // use it so the enemy can play 3D audio without extra setup.
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         UpdateHealthText();
     }
@@ -63,7 +80,7 @@ public class Enemy : Interactable
         int chars = Mathf.RoundToInt(fract * healthSegments);
         healthText.text = new string('I', chars);
 
-        healthText.color = Color.Lerp(Color.red, Color.green, fract);
+        healthText.color = fract > 0.66 ? Color.green : fract > 0.3 ? Color.yellow : Color.red;
     }
 
     void Die()

@@ -131,6 +131,12 @@ public class EnemyController : MonoBehaviour
 
     void Shoot(Transform shootTarget)
     {
+        if (_enemy.useLineShot)
+        {
+            ShootLine(shootTarget);
+            return;
+        }
+
         if (_enemy.bulletPrefab == null)
         {
             Debug.LogWarning($"{name}: bulletPrefab nije postavljen!");
@@ -148,6 +154,67 @@ public class EnemyController : MonoBehaviour
             bullet.Init(shootTarget, _enemy.damage, _enemy.bulletSpeed);
         else
             Debug.LogWarning("bulletPrefab nema Bullet komponentu!");
+
+        // Play shooting sound
+        if (_enemy.shootClip != null)
+        {
+            if (_enemy.audioSource != null)
+                _enemy.audioSource.PlayOneShot(_enemy.shootClip);
+            else
+                AudioSource.PlayClipAtPoint(_enemy.shootClip, spawnPos);
+        }
+    }
+
+    void ShootLine(Transform shootTarget)
+    {
+        Vector3 origin = _enemy.gunPoint != null
+            ? _enemy.gunPoint.position
+            : transform.position + transform.forward * 0.5f;
+
+        Vector3 targetPoint = shootTarget.position;
+        float maxDistance = Mathf.Max(0.01f, _enemy.lineMaxDistance);
+        Vector3 direction = targetPoint - origin;
+
+        if (direction.sqrMagnitude > maxDistance * maxDistance)
+            targetPoint = origin + direction.normalized * maxDistance;
+
+        if (_enemy.linePrefab != null)
+        {
+            GameObject lineObj = Instantiate(_enemy.linePrefab);
+            LineRenderer lr = lineObj.GetComponent<LineRenderer>();
+
+            if (lr != null)
+            {
+                lr.positionCount = 2;
+                lr.SetPosition(0, origin);
+                lr.SetPosition(1, targetPoint);
+            }
+            else
+            {
+                Debug.LogWarning($"{name}: linePrefab nema LineRenderer komponentu!");
+            }
+
+            Destroy(lineObj, _enemy.lineDuration);
+        }
+        else
+        {
+            Debug.LogWarning($"{name}: linePrefab nije postavljen!");
+        }
+
+        // Play shooting sound for line shot
+        if (_enemy.shootClip != null)
+        {
+            if (_enemy.audioSource != null)
+                _enemy.audioSource.PlayOneShot(_enemy.shootClip);
+            else
+                AudioSource.PlayClipAtPoint(_enemy.shootClip, origin);
+        }
+
+        Interactable interactable = shootTarget.GetComponent<Interactable>();
+        if (interactable != null)
+            interactable.TakeDamage(_enemy.damage);
+        else
+            Debug.LogWarning($"{name}: {shootTarget.name} nema Interactable komponentu.");
     }
 
     void FaceTarget(Vector3 target)
