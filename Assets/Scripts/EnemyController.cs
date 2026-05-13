@@ -35,14 +35,14 @@ public class EnemyController : MonoBehaviour
         if (animator == null)
             animator = GetComponent<Animator>();
 
-        if (PlayerManager.instance == null || PlayerManager.instance.player == null)
+        if (PlayerManager.Instance == null || PlayerManager.Instance.player == null)
         {
             Debug.LogError("PlayerManager ili player nisu postavljeni u sceni!");
             enabled = false;
             return;
         }
 
-        _player = PlayerManager.instance.player.transform;
+        _player = PlayerManager.Instance.player.transform;
         _agent.speed = _enemy.moveSpeed;
         _agent.stoppingDistance = stoppingDistance;
 
@@ -159,7 +159,10 @@ public class EnemyController : MonoBehaviour
         // Play shooting sound
         if (shootClip != null)
         {
-            Camera.main.GetComponent<AudioSource>().PlayOneShot(shootClip);
+            Camera mainCamera = Camera.main;
+            AudioSource audioSource = mainCamera != null ? mainCamera.GetComponent<AudioSource>() : null;
+            if (audioSource != null)
+                audioSource.PlayOneShot(shootClip);
         }
     }
 
@@ -201,7 +204,10 @@ public class EnemyController : MonoBehaviour
 
         if (shootClip != null)
         {
-            Camera.main.GetComponent<AudioSource>().PlayOneShot(shootClip);
+            Camera mainCamera = Camera.main;
+            AudioSource audioSource = mainCamera != null ? mainCamera.GetComponent<AudioSource>() : null;
+            if (audioSource != null)
+                audioSource.PlayOneShot(shootClip);
         }
 
         Interactable interactable = shootTarget.GetComponent<Interactable>();

@@ -50,7 +50,7 @@ public class PlayerHealth : Interactable
 
     IEnumerator RespawnCountdown()
     {
-        for (int i = 5; i > 0; i--)
+        for (int i = 3; i > 0; i--)
         {
             Debug.Log($"Respawn za {i}...");
             yield return new WaitForSeconds(1f);
