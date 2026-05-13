@@ -2249,7 +2249,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -1.5
+  m_BaseOffset: -0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &9144351546744897178
@@ -2271,6 +2271,7 @@ MonoBehaviour:
   walkStateName: Walk_F
   attackStateName: Attack1
   animationCrossFade: 0.1
+  shootClip: {fileID: 8300000, guid: 5461c374cb9421e49865709c180c7e5c, type: 3}
 --- !u!114 &3159487103811082031
 MonoBehaviour:
   m_ObjectHideFlags: 0

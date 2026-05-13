@@ -152,7 +152,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.8
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &7885993309275806188
@@ -172,9 +172,13 @@ MonoBehaviour:
   damage: 10
   shootRange: 5
   shootInterval: 1.5
+  gunPoint: {fileID: 8222230422779170714}
+  useLineShot: 0
   bulletSpeed: 15
   bulletPrefab: {fileID: 7086566278820830449, guid: dc5f2474a80f82f4490f03b437783e87, type: 3}
-  gunPoint: {fileID: 8222230422779170714}
+  linePrefab: {fileID: 0}
+  lineDuration: 0.3
+  lineMaxDistance: 100
   healthBarOffset: {x: 0, y: 2.2, z: 0}
   healthSegments: 10
   healthTextPrefab: {fileID: 7303660971619538012, guid: e5ba24e9a6630f74a8fd9d10b1cbaf95, type: 3}
@@ -197,6 +201,7 @@ MonoBehaviour:
   walkStateName: Walk_F
   attackStateName: Attack1
   animationCrossFade: 0.1
+  shootClip: {fileID: 8300000, guid: 8350b64cabf5acc4db92140c689e61ce, type: 3}
 --- !u!4 &8222230422779170714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8587017837586367125, guid: abc00000000003240475589451310378, type: 3}

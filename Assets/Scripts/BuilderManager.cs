@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class BuilderManager : MonoBehaviour
 {
@@ -9,18 +10,27 @@ public class BuilderManager : MonoBehaviour
     [SerializeField] private LayerMask buildSurfaceMask;
     [SerializeField] private float maxBuildDistance = 100f;
 
-    [Header("Buildable Prefab")]
-    [SerializeField] private GameObject buildablePrefab;
+    [System.Serializable]
+    public class BuildOption
+    {
+        public string optionName;
+        public Key key;
+        public GameObject prefab;
+        public bool isDrill;
+        public GameObject hologramPrefab;
+        public GameObject redHologramPrefab;
+    }
 
-    [Header("Hologram")]
+    [Header("Build Options")]
+    [SerializeField] private List<BuildOption> buildOptions = new List<BuildOption>();
+
+    [Header("Hologram (default)")]
     [SerializeField] private GameObject hologramPrefab;
     [SerializeField] private GameObject redHologramPrefab;
     
     [Header("Terrain")]
     [SerializeField] private Terrain terrain;
 
-    [Header("Place key")]
-    public Key placeKey = Key.Digit1;
     
     [Header("Cancel key")]
     public Key cancelKey = Key.Q;
@@ -28,8 +38,10 @@ public class BuilderManager : MonoBehaviour
     private bool _isPlacing;
     private bool _canPlaceOnCurrentTarget;
     private bool _currentHologramIsRed;
+    private BuildOption _currentBuildOption;
 
     private GameObject _currentHologram;
+    private GameObject _currentHologramPrefab;
     private Camera _cam;
 
     private void Awake()
@@ -53,14 +65,21 @@ public class BuilderManager : MonoBehaviour
     {
         if (Keyboard.current != null)
         {
-            if(Keyboard.current[placeKey].wasPressedThisFrame)
+            // Check each configured build option's key to start placing that option
+            foreach (var opt in buildOptions)
             {
-                _isPlacing = true;
+                if (Keyboard.current[opt.key].wasPressedThisFrame)
+                {
+                    _isPlacing = true;
+                    _currentBuildOption = opt;
+                    break;
+                }
             }
-            
-            if(Keyboard.current[cancelKey].wasPressedThisFrame)
+
+            if (Keyboard.current[cancelKey].wasPressedThisFrame)
             {
                 _isPlacing = false;
+                _currentBuildOption = null;
             }
         }
         
@@ -87,9 +106,24 @@ public class BuilderManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, maxBuildDistance, buildSurfaceMask))
         {
-            bool isCopperOre = HasTagInParents(hit.collider.transform, "CopperOre");
-            _canPlaceOnCurrentTarget = isCopperOre;
-            ShowHologram(hit, isCopperOre);
+            if (_currentBuildOption == null)
+            {
+                _canPlaceOnCurrentTarget = false;
+                HideHologram();
+                return;
+            }
+
+            // Determine if the hit target (or its parents) is one of the ore tags
+            bool isOre = HasTagInParents(hit.collider.transform, "CopperOre")
+                         || HasTagInParents(hit.collider.transform, "IronOre")
+                         || HasTagInParents(hit.collider.transform, "TitaniumOre");
+
+            // If this build option is a drill, it can only be placed on ore.
+            // Otherwise placement is allowed anywhere on the build surface.
+            bool canPlace = _currentBuildOption.isDrill ? isOre : true;
+
+            _canPlaceOnCurrentTarget = canPlace;
+            ShowHologram(hit, canPlace);
         }
         else
         {
@@ -99,11 +133,27 @@ public class BuilderManager : MonoBehaviour
     }
 
 
-    private void ShowHologram(RaycastHit hit, bool isCopperOre)
+    private void ShowHologram(RaycastHit hit, bool isValidPlacement)
     {
-        bool shouldUseRedHologram = !isCopperOre;
-        if (_currentHologram == null || _currentHologramIsRed != shouldUseRedHologram)
-            SpawnHologram(shouldUseRedHologram);
+        bool shouldUseRedHologram = !isValidPlacement;
+
+        // Choose per-option holograms if assigned, otherwise fall back to defaults
+        GameObject optionHolo = (_currentBuildOption != null && _currentBuildOption.hologramPrefab != null)
+            ? _currentBuildOption.hologramPrefab
+            : hologramPrefab;
+
+        GameObject optionRedHolo = (_currentBuildOption != null && _currentBuildOption.redHologramPrefab != null)
+            ? _currentBuildOption.redHologramPrefab
+            : redHologramPrefab;
+
+        GameObject prefabToUse = shouldUseRedHologram ? optionRedHolo : optionHolo;
+
+        // If prefab changes (different option) or color state changes, respawn hologram
+        if (_currentHologram == null || _currentHologramIsRed != shouldUseRedHologram || _currentHologramPrefab != prefabToUse)
+            SpawnHologram(prefabToUse, shouldUseRedHologram);
+
+        if (_currentHologram == null)
+            return; // Nothing to show (no prefabs assigned)
 
         _currentHologram.SetActive(true);
         _currentHologram.transform.position = hit.point;
@@ -129,23 +179,42 @@ public class BuilderManager : MonoBehaviour
     }
 
 
-    private void SpawnHologram(bool useRedHologram)
+    private void SpawnHologram(GameObject prefab, bool isRed)
     {
         if (_currentHologram != null)
             Destroy(_currentHologram);
 
-        _currentHologram = Instantiate(useRedHologram ? redHologramPrefab : hologramPrefab);
-        _currentHologramIsRed = useRedHologram;
+        // Fallback to defaults if prefab is null
+        if (prefab == null)
+            prefab = isRed ? redHologramPrefab : hologramPrefab;
+
+        if (prefab == null)
+        {
+            Debug.LogWarning("BuilderManager.SpawnHologram: no hologram prefab available to spawn.");
+            _currentHologram = null;
+            _currentHologramPrefab = null;
+            return;
+        }
+
+        _currentHologram = Instantiate(prefab);
+        _currentHologramIsRed = isRed;
+        _currentHologramPrefab = prefab;
     }
 
     private void PlaceObject()
     {
-        if (!_canPlaceOnCurrentTarget || _currentHologram == null)
+        if (!_canPlaceOnCurrentTarget || _currentHologram == null || _currentBuildOption == null)
             return;
+
+        if (_currentBuildOption.prefab == null)
+        {
+            Debug.LogWarning("BuilderManager.PlaceObject: selected build option has no prefab assigned.");
+            return;
+        }
 
         _isPlacing = false;
         Instantiate(
-            buildablePrefab, // replace with real prefab
+            _currentBuildOption.prefab,
             _currentHologram.transform.position,
             _currentHologram.transform.rotation
         );

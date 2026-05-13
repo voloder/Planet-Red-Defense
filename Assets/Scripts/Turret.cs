@@ -15,13 +15,12 @@ public class Turret : MonoBehaviour
     public float damage = 10f;
 
     [Header("Audio")]
-    public AudioSource audioSource;
     public AudioClip shootClip;
 
     readonly Collider[] _overlapHits = new Collider[64];
     Enemy _currentTarget;
     float _nextFireTime;
-
+    
     void Update()
     {
         AcquireTarget();
@@ -95,11 +94,8 @@ public class Turret : MonoBehaviour
         }
 
         if (shootClip != null)
-        {
-            if (audioSource != null)
-                audioSource.PlayOneShot(shootClip);
-            else
-                AudioSource.PlayClipAtPoint(shootClip, origin.position);
+        { 
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(shootClip);
         }
 
 

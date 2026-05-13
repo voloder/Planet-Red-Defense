@@ -26,7 +26,8 @@ public class EnemyController : MonoBehaviour
     Enemy _enemy;
     Transform _player;
     float _shootTimer;
-
+    
+    public AudioClip shootClip;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -156,12 +157,9 @@ public class EnemyController : MonoBehaviour
             Debug.LogWarning("bulletPrefab nema Bullet komponentu!");
 
         // Play shooting sound
-        if (_enemy.shootClip != null)
+        if (shootClip != null)
         {
-            if (_enemy.audioSource != null)
-                _enemy.audioSource.PlayOneShot(_enemy.shootClip);
-            else
-                AudioSource.PlayClipAtPoint(_enemy.shootClip, spawnPos);
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(shootClip);
         }
     }
 
@@ -201,13 +199,9 @@ public class EnemyController : MonoBehaviour
             Debug.LogWarning($"{name}: linePrefab nije postavljen!");
         }
 
-        // Play shooting sound for line shot
-        if (_enemy.shootClip != null)
+        if (shootClip != null)
         {
-            if (_enemy.audioSource != null)
-                _enemy.audioSource.PlayOneShot(_enemy.shootClip);
-            else
-                AudioSource.PlayClipAtPoint(_enemy.shootClip, origin);
+            Camera.main.GetComponent<AudioSource>().PlayOneShot(shootClip);
         }
 
         Interactable interactable = shootTarget.GetComponent<Interactable>();

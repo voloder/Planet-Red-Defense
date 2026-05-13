@@ -4,38 +4,35 @@ using System.Collections;
 
 public class PlayerShoot : MonoBehaviour
 {
-    public GameObject origin;           // Where the shot starts (gun tip or player)
-    public GameObject linePrefab;       // The LineRenderer prefab
+    public GameObject origin; // Where the shot starts (gun tip or player)
+    public GameObject linePrefab; // The LineRenderer prefab
     public float maxDistance = 100f;
-    public float lineDuration = 0.3f;   // How long the line stays
-    public AudioSource audioSource;     // AudioSource component
-    public AudioClip shootClip;         // Sound to play
+    public float lineDuration = 0.3f; // How long the line stays
+    public AudioClip shootClip; // Sound to play
     public AudioClip reloadClip;
     public GameObject target;
-    
-    [Header("Shooting Settings")]
-    public float fireRate = 5f;         // Shots per second
-    public int magazineSize = 5;        // Shots before reload
-    public float reloadTime = 1.5f;       // Seconds to reload
+
+    [Header("Shooting Settings")] public float fireRate = 5f; // Shots per second
+    public int magazineSize = 5; // Shots before reload
+    public float reloadTime = 1.5f; // Seconds to reload
 
 
-    
     private float nextFireTime = 0f;
     private int currentAmmo;
     private bool isReloading = false;
 
     public bool isShooting = false;
-    
+
     void Start()
     {
-        currentAmmo = magazineSize; 
+        currentAmmo = magazineSize;
     }
 
     void Update()
-    {   
+    {
         isShooting = false;
 
-        if (Mouse.current.leftButton.isPressed )
+        if (Mouse.current.leftButton.isPressed)
         {
             isShooting = true;
             Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -46,9 +43,9 @@ public class PlayerShoot : MonoBehaviour
             if (Physics.Raycast(cameraRay, out cameraHit, maxDistance))
                 aimPoint = cameraHit.point;
             else return;
-            
+
             target.transform.position = aimPoint;
-            
+
             if (currentAmmo > 0 && Time.time >= nextFireTime && !isReloading)
             {
                 Shoot(aimPoint, cameraHit);
@@ -65,14 +62,12 @@ public class PlayerShoot : MonoBehaviour
 
     void Shoot(Vector3 aimPoint, RaycastHit cameraHit)
     {
-
-
         /*if (cameraHit.collider.gameObject.tag == "Terrain")
         {
             aimPoint.y += 1f;
         }*/
 
-        
+
         Vector3 shootDirection = (aimPoint - origin.transform.position).normalized;
         Ray originRay = new Ray(origin.transform.position, shootDirection);
         RaycastHit originHit;
@@ -83,7 +78,7 @@ public class PlayerShoot : MonoBehaviour
         {
             finalHitPoint = originHit.point;
             Debug.Log("Gun hit: " + originHit.collider.name);
-            
+
             originHit.collider.GetComponent<Enemy>()?.TakeDamage(10f);
         }
         else
@@ -97,20 +92,15 @@ public class PlayerShoot : MonoBehaviour
         lr.SetPosition(0, origin.transform.position);
         lr.SetPosition(1, finalHitPoint);
 
-        if (audioSource && shootClip)
-        {
-            audioSource.PlayOneShot(shootClip);
-        }
+
+        Camera.main.GetComponent<AudioSource>().PlayOneShot(shootClip);
 
         Destroy(lineObj, lineDuration);
     }
 
     IEnumerator Reload()
     {
-        if (audioSource && reloadClip)
-        {
-            audioSource.PlayOneShot(reloadClip);
-        }
+        Camera.main.GetComponent<AudioSource>().PlayOneShot(reloadClip);
         isReloading = true;
         Debug.Log("Reloading...");
         yield return new WaitForSeconds(reloadTime);
@@ -118,6 +108,4 @@ public class PlayerShoot : MonoBehaviour
         isReloading = false;
         Debug.Log("Reloaded!");
     }
-    
-
 }

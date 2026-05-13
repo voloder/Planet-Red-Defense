@@ -21,10 +21,6 @@ public class Enemy : Interactable
     public float lineDuration = 0.3f;
     public float lineMaxDistance = 100f;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip shootClip;
-
     float currentHealth;
 
     [Header("Health Text (simple)")]
@@ -43,11 +39,6 @@ public class Enemy : Interactable
         go.transform.localPosition = healthBarOffset;
         go.transform.localRotation = Quaternion.identity;
         healthText = go.GetComponentInChildren<TextMeshPro>();
-
-        // If an AudioSource exists on the same GameObject but wasn't assigned in Inspector,
-        // use it so the enemy can play 3D audio without extra setup.
-        if (audioSource == null)
-            audioSource = GetComponent<AudioSource>();
 
         UpdateHealthText();
     }
