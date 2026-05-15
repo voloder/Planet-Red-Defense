@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ac97fc91b6fe144ab60b3855185942, type: 2}
+  - {fileID: 2100000, guid: cfb6b476df1601e48921dd27f7f07175, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5465053080025234088}
   - component: {fileID: 7139208603549728763}
   m_Layer: 0
-  m_Name: turret1holo
+  m_Name: turretHoloRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,7 +158,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ac97fc91b6fe144ab60b3855185942, type: 2}
+  - {fileID: 2100000, guid: cfb6b476df1601e48921dd27f7f07175, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -248,7 +248,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7ac97fc91b6fe144ab60b3855185942, type: 2}
+  - {fileID: 2100000, guid: cfb6b476df1601e48921dd27f7f07175, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
