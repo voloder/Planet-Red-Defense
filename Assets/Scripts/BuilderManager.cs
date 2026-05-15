@@ -9,6 +9,7 @@ public class BuilderManager : MonoBehaviour
     [Header("Build Settings")]
     [SerializeField] private LayerMask buildSurfaceMask;
     [SerializeField] private float maxBuildDistance = 100f;
+    [SerializeField] private AudioClip noResourcesClip;
 
     [System.Serializable]
     public class BuildOption
@@ -19,6 +20,12 @@ public class BuilderManager : MonoBehaviour
         public bool isDrill;
         public GameObject hologramPrefab;
         public GameObject redHologramPrefab;
+
+        // COST
+        public int copperCost;
+        public int ironCost;
+        public int titaniumCost;
+        public int diamondCost;
     }
 
     [Header("Build Options")]
@@ -196,6 +203,7 @@ public class BuilderManager : MonoBehaviour
             return;
         }
 
+
         _currentHologram = Instantiate(prefab);
         _currentHologramIsRed = isRed;
         _currentHologramPrefab = prefab;
@@ -209,6 +217,18 @@ public class BuilderManager : MonoBehaviour
         if (_currentBuildOption.prefab == null)
         {
             Debug.LogWarning("BuilderManager.PlaceObject: selected build option has no prefab assigned.");
+            return;
+        }
+
+        if (!ResourceManager.Instance.UseResources(
+            _currentBuildOption.copperCost,
+            _currentBuildOption.ironCost,
+            _currentBuildOption.titaniumCost,
+            _currentBuildOption.diamondCost))
+        {
+            Debug.Log("Nema resursa!");
+            if (noResourcesClip != null)
+                AudioSource.PlayClipAtPoint(noResourcesClip, _cam.transform.position);
             return;
         }
 

@@ -105,6 +105,13 @@ MonoBehaviour:
   linePrefab: {fileID: 1239710086658004242, guid: 128d1b049a388834185f76f85498fe24, type: 3}
   lineDuration: 0.5
   lineMaxDistance: 100
+  copperMin: 25
+  copperMax: 40
+  ironMin: 15
+  ironMax: 25
+  titaniumMin: 3
+  titaniumMax: 6
+  diamondChance: 0.2
   healthBarOffset: {x: 0, y: 2.2, z: 0}
   healthSegments: 10
   healthTextPrefab: {fileID: 7303660971619538012, guid: e5ba24e9a6630f74a8fd9d10b1cbaf95, type: 3}

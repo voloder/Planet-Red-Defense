@@ -23,7 +23,6 @@ public class HUDController : MonoBehaviour
     private Label _ammoMax;
     private VisualElement _ammoBarFill;
 
-    private Button _craftAmmoBtn;
     private VisualElement _craftBtnFill;
     private VisualElement _craftProgressRoot;
     private VisualElement _craftBarFill;
@@ -48,19 +47,8 @@ public class HUDController : MonoBehaviour
         _ammoCurrent = root.Q<Label>("ammo-current");
         _ammoMax     = root.Q<Label>("ammo-max");
         _ammoBarFill = root.Q<VisualElement>("ammo-bar-fill");
-
-        _craftAmmoBtn      = root.Q<Button>("craft-ammo-btn");
-        _craftBtnFill      = root.Q<VisualElement>("craft-btn-fill");
-        _craftProgressRoot = root.Q<VisualElement>("craft-progress-root");
-        _craftBarFill      = root.Q<VisualElement>("craft-bar-fill");
-
-        _craftAmmoBtn.clicked += StartCraft;
     }
 
-    void OnDisable()
-    {
-        _craftAmmoBtn.clicked -= StartCraft;
-    }
 
     void Update()
     {
@@ -122,7 +110,6 @@ public class HUDController : MonoBehaviour
         _isCrafting = false;
         _craftElapsed = 0f;
         _craftBtnFill.style.width = Length.Percent(0f);
-        _craftAmmoBtn.SetEnabled(true);
     }
 
     // ── Craft internal ───────────────────────────────────────────────────────
@@ -133,14 +120,12 @@ public class HUDController : MonoBehaviour
         if (_isCrafting) return;
         _isCrafting = true;
         _craftElapsed = 0f;
-        _craftAmmoBtn.SetEnabled(false);
     }
 
     private void CompleteCraft()
     {
         _isCrafting = false;
         _craftBtnFill.style.width = Length.Percent(0f);
-        _craftAmmoBtn.SetEnabled(true);
         OnCraftComplete?.Invoke();
     }
 

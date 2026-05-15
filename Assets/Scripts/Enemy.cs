@@ -23,6 +23,15 @@ public class Enemy : Interactable
 
     float currentHealth;
 
+    [Header("Resource Drops")]
+    public int copperMin = 5;
+    public int copperMax = 12;
+    public int ironMin = 3;
+    public int ironMax = 8;
+    public int titaniumMin = 0;
+    public int titaniumMax = 0;
+    [Range(0f, 1f)] public float diamondChance = 0f;
+
     [Header("Health Text (simple)")]
     public Vector3 healthBarOffset = new Vector3(0f, 2.2f, 0f);
     public int healthSegments = 10; // how many characters when at full health
@@ -79,10 +88,10 @@ public class Enemy : Interactable
         Debug.Log($"{name} je mrtav.");
         Destroy(gameObject);
 
-        var copperAmount = Random.Range(5, 15);
-        var ironAmount = Random.Range(5, 15);
-        var titaniumAmount = Random.Range(0, 2);
-        var diamondAmount = Random.Range(0, 10) == 0 ? 1 : 0;
+        var copperAmount = Random.Range(copperMin, copperMax + 1);
+        var ironAmount = Random.Range(ironMin, ironMax + 1);
+        var titaniumAmount = Random.Range(titaniumMin, titaniumMax + 1);
+        var diamondAmount = Random.value < diamondChance ? 1 : 0;
         ResourceManager.Instance.AddResourcesWithFloatingText(copperAmount, ironAmount, titaniumAmount, diamondAmount, transform.position);
     }
 }
