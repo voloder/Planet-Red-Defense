@@ -42,6 +42,13 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+        if (_enemy == null)
+        {
+            Debug.LogError($"{name}: Enemy komponenta nije pronađena!");
+            enabled = false;
+            return;
+        }
+
         _player = PlayerManager.Instance.player.transform;
         _agent.speed = _enemy.moveSpeed;
         _agent.stoppingDistance = stoppingDistance;

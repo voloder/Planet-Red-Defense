@@ -28,9 +28,9 @@ public class BaseHealth : Interactable
         if (!IsAlive) return;
 
         currentHealth -= amount;
+        currentHealth = Mathf.Max(0f, currentHealth);
         if (amount > 0f)
             lastDamageTime = Time.time;
-        Debug.Log($"Baza HP: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0f)
             Die();
@@ -39,7 +39,10 @@ public class BaseHealth : Interactable
     void Die()
     {
         IsAlive = false;
-        Debug.Log("Baza uništena! Game Over.");
-        Destroy(gameObject);
+        Debug.Log("BAZA JE UNISTENA!");
+        GameOverController.Instance?.Show();
+        Time.timeScale = 0f;
+        foreach (var r in GetComponentsInChildren<Renderer>())
+            r.enabled = false;
     }
 }

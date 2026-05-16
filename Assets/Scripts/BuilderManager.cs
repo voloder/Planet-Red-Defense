@@ -42,6 +42,7 @@ public class BuilderManager : MonoBehaviour
     [Header("Cancel key")]
     public Key cancelKey = Key.Q;
     
+    public bool IsPlacing => _isPlacing;
     private bool _isPlacing;
     private bool _canPlaceOnCurrentTarget;
     private bool _currentHologramIsRed;

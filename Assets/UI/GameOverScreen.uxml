@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/HUD.uss?fileID=7433441132597879392&amp;guid=e59f1dd2ee7c2d947b2b25365610b6bb&amp;type=3#HUD"/>
+    <ui:VisualElement name="game-over-panel" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(5, 0, 0, 0.96); align-items: center; justify-content: center; display: flex; flex-direction: column; opacity: 1; color: rgb(27, 27, 27);">
+        <ui:Label text="GAME OVER" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); font-size: 72px; color: rgb(215, 75, 35); -unity-text-align: upper-center; margin-bottom: 20px;"/>
+        <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 8px;">
+            <ui:Button name="restart-btn" text="RESTART" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); font-size: 22px; color: rgb(215, 75, 35); background-color: rgba(20, 3, 2, 0.9); border-color: rgb(215, 75, 35); border-width: 2px; padding: 12px 40px; width: 220px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; margin-right: 16px;"/>
+            <ui:Button name="exit-btn" text="EXIT" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); font-size: 22px; color: rgb(150, 150, 150); background-color: rgba(20, 3, 2, 0.9); border-color: rgb(150, 150, 150); border-width: 2px; padding: 12px 40px; width: 220px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
