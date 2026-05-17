@@ -32,6 +32,9 @@ public class PlayerShoot : MonoBehaviour
     {
         isShooting = false;
 
+        if (BuilderManager.Instance != null && BuilderManager.Instance.IsPlacing)
+            return;
+
         if (Mouse.current.leftButton.isPressed)
         {
             isShooting = true;

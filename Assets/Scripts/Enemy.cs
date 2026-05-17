@@ -21,6 +21,7 @@ public class Enemy : Interactable
     public float lineDuration = 0.3f;
     public float lineMaxDistance = 100f;
 
+    [HideInInspector] public float spawnHealthMultiplier = 1f;
     float currentHealth;
 
     [Header("Resource Drops")]
@@ -40,6 +41,7 @@ public class Enemy : Interactable
 
     void Start()
     {
+        maxHealth *= spawnHealthMultiplier;
         currentHealth = maxHealth;
         
         var go = Instantiate(healthTextPrefab);
@@ -86,6 +88,7 @@ public class Enemy : Interactable
     void Die()
     {
         Debug.Log($"{name} je mrtav.");
+        WaveSpawner.Instance?.OnEnemyDied();
         Destroy(gameObject);
 
         var copperAmount = Random.Range(copperMin, copperMax + 1);

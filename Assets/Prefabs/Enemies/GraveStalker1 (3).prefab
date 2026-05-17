@@ -179,6 +179,14 @@ MonoBehaviour:
   linePrefab: {fileID: 0}
   lineDuration: 0.3
   lineMaxDistance: 100
+  spawnHealthMultiplier: 1
+  copperMin: 5
+  copperMax: 12
+  ironMin: 3
+  ironMax: 8
+  titaniumMin: 0
+  titaniumMax: 0
+  diamondChance: 0
   healthBarOffset: {x: 0, y: 2.2, z: 0}
   healthSegments: 10
   healthTextPrefab: {fileID: 7303660971619538012, guid: e5ba24e9a6630f74a8fd9d10b1cbaf95, type: 3}
@@ -194,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bf8e7b66ce4ee4dae0b1a18a250cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  basePosition: {x: -2, y: 0, z: 18}
+  basePosition: {x: -2.3, y: 2, z: 20}
   stoppingDistance: 2
   baseAttackRange: 8
   animator: {fileID: 0}

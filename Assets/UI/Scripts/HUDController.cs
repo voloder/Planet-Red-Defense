@@ -11,6 +11,7 @@ public class HUDController : MonoBehaviour
     public Action OnCraftComplete;
 
     private Label _waveNumber;
+    private Label _waveTopLabel;
     private VisualElement _baseAttackWarning;
     private bool _isBaseWarningVisible;
 
@@ -34,8 +35,10 @@ public class HUDController : MonoBehaviour
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        _waveNumber = root.Q<Label>("wave-number");
+        _waveNumber    = root.Q<Label>("wave-number");
+        _waveTopLabel  = root.Q<Label>("wave-top-label");
         _baseAttackWarning = root.Q<VisualElement>("BaseAttackWarning");
+
         if (_baseAttackWarning != null)
             _baseAttackWarning.style.display = DisplayStyle.None;
 
@@ -55,14 +58,12 @@ public class HUDController : MonoBehaviour
         UpdateBaseAttackWarning();
 
 #if UNITY_EDITOR
-        // T = test craft fill without clicking through the game
         if (UnityEngine.InputSystem.Keyboard.current.tKey.wasPressedThisFrame)
             StartCraft();
 #endif
 
         if (!_isCrafting) return;
 
-        // UI Toolkit doesn't support CSS keyframe animations so we drive the fill here
         _craftElapsed += Time.deltaTime;
         float t = Mathf.Clamp01(_craftElapsed / craftDuration);
         _craftBtnFill.style.width = Length.Percent(t * 100f);
@@ -75,6 +76,20 @@ public class HUDController : MonoBehaviour
 
     public void SetWave(int wave) =>
         _waveNumber.text = wave.ToString("D2");
+
+    public void SetWavePhase(int wave, bool isBreak, int secsLeft)
+    {
+        if (isBreak)
+        {
+            if (_waveTopLabel != null) _waveTopLabel.text = wave == 0 ? "PREPARE" : "WAVE CLEARED";
+            _waveNumber.text = secsLeft + "s";
+        }
+        else
+        {
+            if (_waveTopLabel != null) _waveTopLabel.text = "SIEGE WAVE";
+            _waveNumber.text = wave.ToString("D2");
+        }
+    }
 
     public void SetResources(int iron, int copper, int titanium, int diamond)
     {

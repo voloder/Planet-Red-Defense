@@ -3,7 +3,7 @@
     <ui:VisualElement name="hud-root" class="hud-root">
         <ui:VisualElement name="top-bar" class="top-bar" style="flex-wrap: nowrap; align-items: auto; justify-content: space-between; -unity-text-align: upper-left; align-self: auto;">
             <ui:VisualElement name="VisualElement" class="panel wave-panel" style="height: 90px; width: 190px; align-self: flex-start; color: rgba(0, 0, 0, 0); justify-content: space-around; background-color: rgba(20, 3, 2, 0.82);">
-                <ui:Label text="SIEGE WAVE" class="wave-top" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                <ui:Label name="wave-top-label" text="SIEGE WAVE" class="wave-top" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                 <ui:Label name="wave-number" text="04" class="wave-big" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;); height: 46px; width: 64px; font-size: 40px; -unity-text-align: upper-center; align-items: auto; justify-content: flex-end; align-self: center; align-content: auto; flex-wrap: nowrap;"/>
             </ui:VisualElement>
             <ui:VisualElement name="BaseAttackWarning" style="flex-grow: 1; display: flex;">
@@ -44,8 +44,10 @@
                     <ui:VisualElement class="panel" style="height: 133px; width: 180px; background-color: rgba(20, 3, 2, 0.82);">
                         <ui:Label text="CONTROLS" class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                         <ui:VisualElement class="key-row">
-                            <ui:Label text="E" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
-                            <ui:Label text="Place Structure" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="1" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="2" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="3" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="Structures&#10;" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                         </ui:VisualElement>
                         <ui:VisualElement class="key-row">
                             <ui:Label text="F" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
