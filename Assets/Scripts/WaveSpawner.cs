@@ -90,7 +90,7 @@ public class WaveSpawner : MonoBehaviour
         int t1 = wave <= 3 ? (2 + wave) : Mathf.Max(2, 6 - wave);
         int t2 = wave >= 4 ? Mathf.Min(wave - 3, 8) : 0;
         int t3 = wave >= 7 ? Mathf.Min(wave - 6, 6) : 0;
-        int boss = wave >= 10 ? wave / 5 - 1 : 0;
+        int boss = wave >= 12 ? wave / 5 - 1 : 0;
 
         var list = new List<(GameObject, float)>();
 
