@@ -29,7 +29,7 @@ public class AimIK : MonoBehaviour
     {
         if (!aimTarget) return;
 
-        var isShooting = GetComponent<PlayerShoot>().isShooting || GetComponent<PlayerMine>().isShooting;
+        var isShooting = GetComponent<PlayerShoot>().isShooting || GetComponent<PlayerMine>().isShooting || GetComponent<PlayerRepair>().isShooting;
 
         if (!isShooting) return;
 

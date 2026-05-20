@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-public class PlayerMine : MonoBehaviour
+public class PlayerRepair : MonoBehaviour
 {
     public GameObject origin; // Where the shot starts (gun tip or player)
     public GameObject linePrefab; // The LineRenderer prefab
@@ -10,21 +10,13 @@ public class PlayerMine : MonoBehaviour
     public float lineDuration = 0.3f; // How long the line stays
     public GameObject target;
 
-
-    [Header("Impact Light")] public float impactLightRange = 3f;
-    public float impactLightIntensity = 4f;
-    public float impactLightDuration = 0.1f;
-    public Color impactLightColor = Color.white;
-
-    public float lastMineTime;
-
     public bool isShooting;
 
     void Update()
     {
         isShooting = false;
         // Fire when left mouse button is held
-        if (Keyboard.current[Key.F].isPressed)
+        if (Keyboard.current[Key.R].isPressed)
         {
             isShooting = true;
             Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -40,33 +32,8 @@ public class PlayerMine : MonoBehaviour
 
 
             target.transform.position = aimPoint;
-
-            if (Time.time - lastMineTime > 1f)
-            {
-                int copperAmount = 0;
-                int ironAmount = 0;
-                int titaniumAmount = 0;
-                int diamondAmount = 0;
-
-                // Give resource based on the tag of the object we aimed at
-                if (cameraHit.collider != null)
-                {
-                    if (cameraHit.collider.CompareTag("CopperOre"))
-                        copperAmount = 1;
-                    else if (cameraHit.collider.CompareTag("IronOre"))
-                        ironAmount = 1;
-                    else if (cameraHit.collider.CompareTag("TitaniumOre"))
-                        titaniumAmount = 1;
-                    else if (cameraHit.collider.CompareTag("DiamondOre"))
-                        diamondAmount = 1;
-                }
-
-                if (copperAmount + ironAmount + titaniumAmount + diamondAmount > 0)
-                {
-                    ResourceManager.Instance.AddResourcesWithFloatingText(copperAmount, ironAmount, titaniumAmount, diamondAmount, aimPoint);
-                    lastMineTime = Time.time;
-                }
-            }
+            
+            
 
             Shoot(aimPoint);
         }
@@ -84,6 +51,13 @@ public class PlayerMine : MonoBehaviour
         {
             finalHitPoint = originHit.point;
             Debug.Log("Gun hit: " + originHit.collider.name);
+
+            Turret turret = originHit.collider.GetComponentInParent<Turret>();
+            if (turret != null)
+            {
+                turret.Repair();
+                Debug.Log("Repaired turret: " + turret.name);
+            }
         }
         else
         {

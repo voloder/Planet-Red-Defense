@@ -44,23 +44,40 @@
                     <ui:VisualElement class="panel" style="height: 133px; width: 180px; background-color: rgba(20, 3, 2, 0.82);">
                         <ui:Label text="CONTROLS" class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                         <ui:VisualElement class="key-row">
-                            <ui:Label text="1" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
-                            <ui:Label text="2" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
-                            <ui:Label text="3" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
-                            <ui:Label text="Structures&#10;" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
-                        </ui:VisualElement>
-                        <ui:VisualElement class="key-row">
                             <ui:Label text="F" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                             <ui:Label text="Mine Resource" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                         </ui:VisualElement>
                         <ui:VisualElement class="key-row">
                             <ui:Label text="TAB" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
-                            <ui:Label text="Tactical Map" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="Map" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="key-row">
+                            <ui:Label text="Q" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                            <ui:Label text="Cancel building" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" class="bottom-right" style="background-size: 100% 50px; height: 130px; justify-content: flex-start;"/>
+            <ui:VisualElement name="VisualElement" class="panel" style="height: 133px; width: 180px; background-color: rgba(20, 3, 2, 0.82);">
+                <ui:Label text="STRUCTURES" class="panel-label" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                <ui:VisualElement class="key-row">
+                    <ui:Label text="1" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    <ui:Label text="Drill " class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="key-row">
+                    <ui:Label text="2" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    <ui:Label text="Basic Turret" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="key-row">
+                    <ui:Label text="3" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    <ui:Label text="Machine Gun Turret" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="key-row">
+                    <ui:Label text="4" class="key-badge" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                    <ui:Label text="Laser Turret" class="key-desc" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Conthrax-SemiBold.otf?fileID=12800000&amp;guid=86b96efc9937c2446abcc815af7bb8e5&amp;type=3#Conthrax-SemiBold&quot;);"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

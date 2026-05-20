@@ -1,6 +1,8 @@
+using Mono.Cecil;
 using UnityEngine;
+using TMPro;
 
-public class Turret : MonoBehaviour
+public class Turret : Interactable
 {
     [Header("Targeting")]
     public float range = 15f;
@@ -14,12 +16,39 @@ public class Turret : MonoBehaviour
     public float fireRate = 2f;
     public float damage = 10f;
 
+    [Header("Health")]
+    public float maxHealth = 50f;
+
+    [Header("Health Display")]
+    public Vector3 healthBarOffset = new Vector3(0f, 2.2f, 0f);
+    public int healthSegments = 10;
+    public GameObject healthTextPrefab;
+
     [Header("Audio")]
     public AudioClip shootClip;
 
     readonly Collider[] _overlapHits = new Collider[64];
     Enemy _currentTarget;
     float _nextFireTime;
+    float _currentHealth;
+    TextMeshPro _healthText;
+    
+    void Start()
+    {
+        _currentHealth = maxHealth;
+        
+        if (healthTextPrefab != null)
+        {
+            GameObject go = Instantiate(healthTextPrefab);
+            go.name = "HealthText";
+            go.transform.SetParent(transform, false);
+            go.transform.localPosition = healthBarOffset;
+            go.transform.localRotation = Quaternion.identity;
+            _healthText = go.GetComponentInChildren<TextMeshPro>();
+            
+            UpdateHealthText();
+        }
+    }
     
     void Update()
     {
@@ -34,6 +63,14 @@ public class Turret : MonoBehaviour
         {
             Shoot();
             _nextFireTime = Time.time + 1f / Mathf.Max(0.01f, fireRate);
+        }
+        
+        // Update health text billboard rotation
+        if (_healthText != null && Camera.main != null)
+        {
+            Vector3 dir = _healthText.transform.position - Camera.main.transform.position;
+            if (dir.sqrMagnitude > 0.001f)
+                _healthText.transform.rotation = Quaternion.LookRotation(dir);
         }
     }
 
@@ -103,9 +140,49 @@ public class Turret : MonoBehaviour
 
     }
 
+    public override void TakeDamage(float amount)
+    {
+        _currentHealth -= amount;
+        _currentHealth = Mathf.Max(0f, _currentHealth);
+        Debug.Log($"{name} received {amount} damage. HP: {_currentHealth}/{maxHealth}");
+
+        UpdateHealthText();
+
+        if (_currentHealth <= 0f)
+            Die();
+    }
+
+    void Die()
+    {
+        Debug.Log($"{name} has been destroyed.");
+        Destroy(gameObject);
+    }
+
+    void UpdateHealthText()
+    {
+        if (_healthText == null)
+            return;
+
+        float fract = _currentHealth / maxHealth;
+        int chars = Mathf.RoundToInt(fract * healthSegments);
+        _healthText.text = new string('I', chars);
+
+        _healthText.color = fract > 0.66f ? Color.green : fract > 0.3f ? Color.yellow : Color.red;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    public void Repair()
+    {
+        if (_currentHealth < maxHealth && ResourceManager.Instance.CanUseResources(1, 1, 0, 0))
+        {
+            ResourceManager.Instance.UseResources(1, 1, 0, 0);
+            _currentHealth += 5;
+            UpdateHealthText();
+        }
     }
 }

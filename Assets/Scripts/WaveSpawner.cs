@@ -90,18 +90,16 @@ public class WaveSpawner : MonoBehaviour
         int t1 = wave <= 3 ? (2 + wave) : Mathf.Max(2, 6 - wave);
         int t2 = wave >= 4 ? Mathf.Min(wave - 3, 8) : 0;
         int t3 = wave >= 7 ? Mathf.Min(wave - 6, 6) : 0;
-        bool hasBoss = wave % 5 == 0;
+        int boss = wave >= 10 ? wave / 5 - 1 : 0;
 
         var list = new List<(GameObject, float)>();
 
         for (int i = 0; i < t1; i++) list.Add((tier1Prefab, healthMult));
         for (int i = 0; i < t2; i++) list.Add((tier2Prefab, healthMult));
         for (int i = 0; i < t3; i++) list.Add((tier3Prefab, healthMult));
-
+        for (int i = 0; i < boss; i++) list.Add((bossPrefab, healthMult));
+        
         ShuffleList(list);
-
-        if (hasBoss && bossPrefab != null)
-            list.Add((bossPrefab, healthMult));
 
         return list;
     }

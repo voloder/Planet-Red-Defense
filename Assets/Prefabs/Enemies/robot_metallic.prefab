@@ -1812,7 +1812,7 @@ Transform:
   m_GameObject: {fileID: 7755042963952744932}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: -1.73, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2200,7 +2200,7 @@ Transform:
   m_GameObject: {fileID: 8973777262894902987}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.41, y: 0.12, z: 70.53}
+  m_LocalPosition: {x: -3.41, y: 1.7, z: 70.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2296,6 +2296,7 @@ MonoBehaviour:
   linePrefab: {fileID: 1239710086658004242, guid: 5624968dfae7a964da2c5b841f875a20, type: 3}
   lineDuration: 0.3
   lineMaxDistance: 100
+  spawnHealthMultiplier: 1
   copperMin: 12
   copperMax: 22
   ironMin: 8
@@ -2328,7 +2329,7 @@ CapsuleCollider:
   m_Radius: 0.51
   m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: -0.22, z: 0}
+  m_Center: {x: 0, y: 1.48, z: 0}
 --- !u!1 &9012935062270277510
 GameObject:
   m_ObjectHideFlags: 0

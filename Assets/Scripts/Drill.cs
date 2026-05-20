@@ -1,12 +1,35 @@
-using System.Numerics;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
-public class Every10Seconds : MonoBehaviour
+public class Drill : MonoBehaviour
 {
-    float timer = 0f;
+    private float timer = 0f;
 
-    void Update()
+    public int copperAmount;
+    public int ironAmount;
+    public int titaniumAmount;
+    public int diamondAmount;
+
+    public void ConfigureFromOreTag(string oreTag)
+    {
+        switch (oreTag)
+        {
+            case "CopperOre":
+                copperAmount = 10;
+                break;
+            case "IronOre":
+                ironAmount = 10;
+                break;
+            case "TitaniumOre":
+                titaniumAmount = 10;
+                break;
+            default:
+                Debug.LogWarning($"Drill.ConfigureFromOreTag: unsupported ore tag '{oreTag}'. Drill will not mine.");
+                break;
+        }
+    }
+
+    private void Update()
     {
         timer += Time.deltaTime;
 
@@ -17,9 +40,17 @@ public class Every10Seconds : MonoBehaviour
         }
     }
 
-    void MineResource()
+    private void MineResource()
     {
-        ResourceManager.Instance.AddResourcesWithFloatingText(10, 0, 0, 0, 
-            transform.position + Vector3.up * 4);
+        if (ResourceManager.Instance == null)
+            return;
+
+        ResourceManager.Instance.AddResourcesWithFloatingText(
+            copperAmount,
+            ironAmount,
+            titaniumAmount,
+            diamondAmount,
+            transform.position + Vector3.up * 4
+        );
     }
 }

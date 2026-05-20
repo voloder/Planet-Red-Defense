@@ -47,6 +47,7 @@ public class BuilderManager : MonoBehaviour
     private bool _canPlaceOnCurrentTarget;
     private bool _currentHologramIsRed;
     private BuildOption _currentBuildOption;
+    private string _currentOreTag;
 
     private GameObject _currentHologram;
     private GameObject _currentHologramPrefab;
@@ -88,6 +89,7 @@ public class BuilderManager : MonoBehaviour
             {
                 _isPlacing = false;
                 _currentBuildOption = null;
+                _currentOreTag = null;
             }
         }
         
@@ -100,12 +102,14 @@ public class BuilderManager : MonoBehaviour
         if(!_isPlacing)
         {
             _canPlaceOnCurrentTarget = false;
+            _currentOreTag = null;
             HideHologram();
             return;
         }
         if (Mouse.current == null || _cam == null)
         {
             _canPlaceOnCurrentTarget = false;
+            _currentOreTag = null;
             HideHologram();
             return;
         }
@@ -117,25 +121,29 @@ public class BuilderManager : MonoBehaviour
             if (_currentBuildOption == null)
             {
                 _canPlaceOnCurrentTarget = false;
+                _currentOreTag = null;
                 HideHologram();
                 return;
             }
 
-            // Determine if the hit target (or its parents) is one of the ore tags
-            bool isOre = HasTagInParents(hit.collider.transform, "CopperOre")
-                         || HasTagInParents(hit.collider.transform, "IronOre")
-                         || HasTagInParents(hit.collider.transform, "TitaniumOre");
+            string oreTag = GetOreTagInParents(hit.collider.transform);
+            bool canPlace = _currentBuildOption.isDrill ? !string.IsNullOrEmpty(oreTag) : true;
 
-            // If this build option is a drill, it can only be placed on ore.
-            // Otherwise placement is allowed anywhere on the build surface.
-            bool canPlace = _currentBuildOption.isDrill ? isOre : true;
+            _currentOreTag = _currentBuildOption.isDrill ? oreTag : null;
+
+            bool canAfford = ResourceManager.Instance == null || ResourceManager.Instance.CanUseResources(
+                _currentBuildOption.copperCost,
+                _currentBuildOption.ironCost,
+                _currentBuildOption.titaniumCost,
+                _currentBuildOption.diamondCost);
 
             _canPlaceOnCurrentTarget = canPlace;
-            ShowHologram(hit, canPlace);
+            ShowHologram(hit, canPlace && canAfford);
         }
         else
         {
             _canPlaceOnCurrentTarget = false;
+            _currentOreTag = null;
             HideHologram();
         }
     }
@@ -234,23 +242,40 @@ public class BuilderManager : MonoBehaviour
         }
 
         _isPlacing = false;
-        Instantiate(
+        GameObject placedObject = Instantiate(
             _currentBuildOption.prefab,
             _currentHologram.transform.position,
             _currentHologram.transform.rotation
         );
+
+        if (_currentBuildOption.isDrill)
+        {
+            Drill drill = placedObject.GetComponent<Drill>();
+            if (drill != null)
+            {
+                drill.ConfigureFromOreTag(_currentOreTag);
+            }
+            else
+            {
+                Debug.LogWarning("BuilderManager.PlaceObject: placed drill prefab has no Drill component.");
+            }
+        }
+
+        _currentOreTag = null;
     }
 
-    private bool HasTagInParents(Transform target, string tagName)
+    private string GetOreTagInParents(Transform target)
     {
         while (target != null)
         {
-            if (target.CompareTag(tagName))
-                return true;
+            if (target.CompareTag("CopperOre")) return "CopperOre";
+            if (target.CompareTag("IronOre")) return "IronOre";
+            if (target.CompareTag("TitaniumOre")) return "TitaniumOre";
 
             target = target.parent;
         }
 
-        return false;
+        return null;
     }
+
 }

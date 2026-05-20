@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour
     Enemy _enemy;
     Transform _player;
     float _shootTimer;
+    Turret _currentTurretTarget;
     
     public AudioClip shootClip;
     void Start()
@@ -62,6 +63,10 @@ public class EnemyController : MonoBehaviour
         float distToBase = Vector3.Distance(transform.position, basePosition);
 
         bool playerAlive = PlayerHealth.instance == null || !PlayerHealth.instance.isDead;
+        
+        // Check for nearby turrets
+        Turret closestTurret = FindClosestTurret();
+        float distToTurret = closestTurret != null ? Vector3.Distance(transform.position, closestTurret.transform.position) : float.MaxValue;
 
         if (playerAlive && distToPlayer <= _enemy.shootRange)
         {
@@ -70,17 +75,28 @@ public class EnemyController : MonoBehaviour
 
             HandleShooting(_player);
         }
+        else if (closestTurret != null && distToTurret <= _enemy.shootRange)
+        {
+            if (_state != State.ShootingBase)
+                SetState(State.ShootingBase);
+
+            _currentTurretTarget = closestTurret;
+            HandleShooting(closestTurret.transform);
+        }
         else if (distToBase <= baseAttackRange && BaseHealth.instance != null && BaseHealth.instance.IsAlive)
         {
             if (_state != State.ShootingBase)
                 SetState(State.ShootingBase);
 
+            _currentTurretTarget = null;
             HandleShooting(BaseHealth.instance.transform);
         }
         else
         {
             if (_state != State.MovingToBase)
                 SetState(State.MovingToBase);
+            
+            _currentTurretTarget = null;
         }
     }
 
@@ -246,5 +262,24 @@ public class EnemyController : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, basePosition);
+    }
+
+    Turret FindClosestTurret()
+    {
+        Turret[] turrets = FindObjectsOfType<Turret>();
+        Turret closest = null;
+        float closestDist = float.MaxValue;
+
+        foreach (Turret turret in turrets)
+        {
+            float dist = Vector3.Distance(transform.position, turret.transform.position);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = turret;
+            }
+        }
+
+        return closest;
     }
 }

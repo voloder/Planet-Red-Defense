@@ -118,7 +118,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0000000030050764, y: 0.47196257, z: 0.068748094}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6136526071312784399}
@@ -302,7 +302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.93, y: -0.00037859846, z: 36.466316}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3710491944483224707}
@@ -385,6 +385,10 @@ MonoBehaviour:
   lineDuration: 0.3
   fireRate: 1
   damage: 100
+  maxHealth: 2000
+  healthBarOffset: {x: 0, y: 2.2, z: 0}
+  healthSegments: 10
+  healthTextPrefab: {fileID: 7303660971619538012, guid: e5ba24e9a6630f74a8fd9d10b1cbaf95, type: 3}
   shootClip: {fileID: 8300000, guid: bb1dbd6ef8d8dd844af5429e5ae82827, type: 3}
 --- !u!65 &6570598357755665826
 BoxCollider:
@@ -405,5 +409,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9841569, y: 0.6337276, z: 0.9217757}
-  m_Center: {x: 0, y: 0.3065894, z: 0.09309788}
+  m_Size: {x: 3.76, y: 2.94, z: 4.44}
+  m_Center: {x: 0, y: 1.73, z: 0.09309788}
